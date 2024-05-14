@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "990054450218",
+    "firebase_url": "https://pitbowl-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pitbowl-app",
+    "storage_bucket": "pitbowl-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990054450218:android:fcbe209f0cab8bfbbb2f53",
+        "android_client_info": {
+          "package_name": "com.example.pitbowl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990054450218-cdjajjvjb90epmmbgaqtpl9nid567kgp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFabCwj5lQ6S6zEA72CTk7tKxGqnbMS-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990054450218-cdjajjvjb90epmmbgaqtpl9nid567kgp.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "990054450218-l2gknbp3mpfbojjh3n0ebhtpv9di3v90.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pitbowl"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
