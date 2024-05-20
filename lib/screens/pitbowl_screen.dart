@@ -21,18 +21,12 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
         MaterialPageRoute(builder: (context) => const NewPitchScreen()));
   }
 
+  Widget content = const FeedList();
+
   void _selectScreen(int index) {
     setState(() {
       currentScreenIndex = index;
     });
-  }
-
-  String activeScreenTitle = "Pitbowl";
-
-  @override
-  Widget build(BuildContext context) {
-    Widget content = const FeedList();
-
     if (currentScreenIndex == 0) {
       activeScreenTitle = "Pitbowl";
       content = const FeedList();
@@ -44,9 +38,9 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
       );
     } else if (currentScreenIndex == 2) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _postNewPitch();
-      });
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      _postNewPitch();
+      // });
     } else if (currentScreenIndex == 3) {
       activeScreenTitle = "Your Portfolio";
       content = Text(
@@ -62,7 +56,12 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
       );
     }
+  }
 
+  String activeScreenTitle = "Pitbowl";
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(activeScreenTitle),
@@ -75,7 +74,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       ),
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
             child: content),
       ),
       bottomNavigationBar: NavigationBar(

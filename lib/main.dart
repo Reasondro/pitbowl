@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
       home: const PitbowlScreen(),
       // home: const NewPostScreen(),
       // home: const FeedList(),
+      // ,initialRoute: , //todo , try to learn from sanudi project
     );
   }
 }

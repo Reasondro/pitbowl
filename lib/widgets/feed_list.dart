@@ -9,42 +9,50 @@ class FeedList extends StatelessWidget {
       itemCount: 10,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.all(10),
-          child: Card(
-            child: Column(
-              children: [
-                ListTile(
-                  title: Text("Pitch title"),
-                  subtitle: Text("Pitch description"),
-                  trailing: IconButton(
-                    icon: Icon(Icons.more_vert),
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+          child: Column(
+            children: [
+              const ListTile(
+                title: Text("Random Username"),
+                subtitle: Text("Category"),
+                // trailing: IconButton(
+                //   icon: Icon(Icons.more_vert),
+                //   onPressed: () {},
+                // ),
+              ),
+              Image.network(
+                "https://via.placeholder.com/250",
+                width: double.infinity,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.favorite_outline),
                     onPressed: () {},
                   ),
-                ),
-                Image.network(
-                  "https://via.placeholder.com/150",
-                  width: double.infinity,
-                  height: 150,
-                  fit: BoxFit.cover,
-                ),
-                ButtonBar(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.thumb_up),
-                      onPressed: () {},
+                  IconButton(
+                    icon: const Icon(Icons.mode_comment_outlined),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.share_outlined),
+                    onPressed: () {},
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.paid,
+                      // color: Color.fromARGB(255, 48, 197, 48),
+                      color: Theme.of(context).colorScheme.primary,
                     ),
-                    IconButton(
-                      icon: Icon(Icons.comment),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.share),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },
