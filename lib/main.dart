@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pitbowl/widgets/feed_list.dart';
 import 'firebase_options.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pitbowl/screens/new_pitch_screen.dart';
 
 final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 48, 0, 104),
@@ -16,7 +18,7 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
     textTheme: GoogleFonts.alegreyaSansTextTheme().copyWith(
       titleLarge:
-          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 40),
+          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 35),
       titleMedium:
           GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 30),
       labelSmall:
@@ -38,7 +40,7 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
         TextStyle(
           color: pitbowlColorTheme.onSurface,
           fontSize: 15,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
         ),
       ),
     ),
@@ -62,6 +64,8 @@ class MyApp extends StatelessWidget {
       title: 'Pitbowl',
       theme: pitbowlTheme,
       home: const PitbowlScreen(),
+      // home: const NewPostScreen(),
+      // home: const FeedList(),
     );
   }
 }
