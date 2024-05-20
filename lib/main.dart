@@ -17,11 +17,30 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
     textTheme: GoogleFonts.alegreyaSansTextTheme().copyWith(
       titleLarge:
           GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 40),
+      titleMedium:
+          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 30),
+      labelSmall:
+          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 10),
     ),
-    appBarTheme: const  AppBarTheme(
+    appBarTheme: const AppBarTheme(
       // color: const Color.fromARGB(255, 41, 0, 94),
-      color: Colors.white ,
-      foregroundColor:  Color.fromARGB(255, 41, 0, 94),
+      color: Colors.white,
+      foregroundColor: Color.fromARGB(255, 41, 0, 94),
+    ),
+    navigationBarTheme: NavigationBarThemeData(
+      backgroundColor: Colors.white,
+      // indicatorColor: const Color.fromARGB(255, 41, 0, 94),
+      indicatorColor: pitbowlColorTheme.secondaryContainer,
+      indicatorShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      labelTextStyle: WidgetStatePropertyAll(
+        TextStyle(
+          color: pitbowlColorTheme.onSurface,
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     ),
     scaffoldBackgroundColor: Colors.white);
 

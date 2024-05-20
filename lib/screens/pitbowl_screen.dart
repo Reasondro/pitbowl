@@ -34,10 +34,33 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: const Icon(Icons.add),
-      // ),
+      bottomNavigationBar: NavigationBar(
+        // indicatorColor: ThemeData().colorScheme.primary,
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.search),
+            label: "Search",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.add),
+            label: "Add",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.notifications),
+            label: "Notifications",
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.account_circle),
+            label: "Profile",
+          ),
+        ],
+        selectedIndex: 0,
+        onDestinationSelected: (index) {},
+      ),
     );
   }
 }

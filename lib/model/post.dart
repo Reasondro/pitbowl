@@ -9,11 +9,15 @@ class Post {
       {String? id,
       required this.title,
       required this.desc,
-      required this.video})
+      required this.username,
+      required this.userProfilePicture,
+      required this.videoPost})
       : id = id ?? uuid.v4();
 
   final String id;
   final String title;
   final String desc;
-  final File video;
+  final String username;
+  final File userProfilePicture;
+  final File videoPost;
 }
