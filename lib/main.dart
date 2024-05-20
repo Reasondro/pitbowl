@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'firebase_options.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:pitbowl/screens/pitbowl_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
     seedColor: const Color.fromARGB(255, 48, 0, 104),
@@ -11,10 +14,14 @@ final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
 
 final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
-    textTheme: GoogleFonts.alegreyaSansTextTheme(),
-    appBarTheme: AppBarTheme(
-      color: const Color.fromARGB(255, 41, 0, 94),
-      foregroundColor: pitbowlColorTheme.copyWith().onPrimary,
+    textTheme: GoogleFonts.alegreyaSansTextTheme().copyWith(
+      titleLarge:
+          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 40),
+    ),
+    appBarTheme: const  AppBarTheme(
+      // color: const Color.fromARGB(255, 41, 0, 94),
+      color: Colors.white ,
+      foregroundColor:  Color.fromARGB(255, 41, 0, 94),
     ),
     scaffoldBackgroundColor: Colors.white);
 
@@ -24,7 +31,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
