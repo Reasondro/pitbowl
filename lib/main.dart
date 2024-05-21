@@ -20,11 +20,11 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
     textTheme: GoogleFonts.alegreyaSansTextTheme().copyWith(
       titleLarge:
-          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 35),
+          GoogleFonts.alfaSlabOne(fontWeight: FontWeight.w300, fontSize: 35),
       titleMedium:
           GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 30),
       labelSmall:
-          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 10),
+          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 15),
     ),
     appBarTheme: AppBarTheme(
       // color: const Color.fromARGB(255, 41, 0, 94),

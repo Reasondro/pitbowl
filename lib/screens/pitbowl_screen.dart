@@ -31,7 +31,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       activeScreenTitle = "Pitbowl";
       content = const FeedList();
     } else if (currentScreenIndex == 1) {
-      activeScreenTitle = "Browse the Market";
+      activeScreenTitle = "Market";
       content = Text(
         "You can search here",
         style: TextStyle(

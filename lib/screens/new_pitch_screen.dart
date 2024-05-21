@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/model/pitch.dart';
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
+
 class NewPitchScreen extends ConsumerStatefulWidget {
   const NewPitchScreen({super.key});
 
@@ -13,20 +15,24 @@ class NewPitchScreen extends ConsumerStatefulWidget {
 }
 
 class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
-  final TextEditingController _postTextController = TextEditingController();
+  final TextEditingController _pitchTitleTextController =
+      TextEditingController();
+  final TextEditingController _pitchDescTextController =
+      TextEditingController();
   final TextEditingController _postImageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(0), // Set padding to 0
-          child: IconButton(
-            icon: Icon(Icons.arrow_back, size: 30.0),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
+        leadingWidth: 30,
+        // leading: Padding(
+        //   padding: const EdgeInsets.all(0), // Set padding to 0
+        //   child: IconButton(
+        //     icon: Icon(Icons.arrow_back, size: 30.0),
+        //     onPressed: () => Navigator.of(context).pop(),
+        //   ),
+        // ),
         // automaticallyImplyLeading: false,
         title: const Text(
           "New Pitch",
@@ -37,7 +43,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
         child: Column(
           children: [
             TextField(
-              controller: _postTextController,
+              controller: _pitchTitleTextController,
               decoration: const InputDecoration(
                 labelText: "Pitch title",
               ),
@@ -49,18 +55,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                final pitch = Pitch(
-                  title: _postTextController.text,
-                  desc: _postTextController.text,
-                  username: "username",
-                  userProfilePicture: File(""),
-                  videoPitch: File(""),
-                );
-                // context.read(userPostsProvider).addPost(post);
-                Navigator.pop(context);
-              },
-              child: const Text("Post"),
+              onPressed: () {},
+              child: const Text("Pitch"),
             ),
           ],
         ),
