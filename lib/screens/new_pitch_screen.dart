@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/model/pitch.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pitbowl/widgets/user_video_input.dart';
 
 class NewPitchScreen extends ConsumerStatefulWidget {
   const NewPitchScreen({super.key});
@@ -18,6 +19,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       TextEditingController();
   final TextEditingController _pitchDescTextController =
       TextEditingController();
+
+  File? _selectedVideo;
 
   @override
   void dispose() {
@@ -147,12 +150,20 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               decoration: const InputDecoration(
                 labelText: "Pitch title",
               ),
+              style: const TextStyle(color: Colors.white),
             ),
             TextField(
               controller: _pitchDescTextController,
               decoration: const InputDecoration(
                 labelText: "Pitch description",
               ),
+              style: const TextStyle(color: Colors.white),
+            ),
+            VideoInput(onPickVideo: (video) {
+              _selectedVideo = video;
+            }),
+            const SizedBox(
+              height: 15,
             ),
             ElevatedButton(
               onPressed: () {

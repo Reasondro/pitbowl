@@ -14,8 +14,7 @@ class PitbowlScreen extends ConsumerStatefulWidget {
 }
 
 class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
-
-  String activeScreenTitle = "Pitbowl";
+  String activeScreenTitle = "PITBOWL";
   int currentScreenIndex = 0;
 
   void _postNewPitch() {
@@ -30,7 +29,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       currentScreenIndex = index;
     });
     if (currentScreenIndex == 0) {
-      activeScreenTitle = "Pitbowl";
+      activeScreenTitle = "PITBOWL";
       content = const FeedList();
     } else if (currentScreenIndex == 1) {
       activeScreenTitle = "Market";
@@ -60,12 +59,13 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(activeScreenTitle),
+        title: Text(
+          activeScreenTitle,
+        ),
         actions: [
           IconButton(
             onPressed: () {},
