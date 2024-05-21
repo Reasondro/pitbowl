@@ -8,7 +8,8 @@ final dummyPitches = List.generate(
       title: 'title $i',
       desc: 'desc $i',
       username: 'username $i',
-      date: 'date $i ',
+      category: 'category $i',
+      // date: 'date $i ',
       // videoPitch: videoPitch,
       videoPitchUrl: 'videoPitchUrl $i'),
 );

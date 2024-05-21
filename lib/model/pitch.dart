@@ -10,7 +10,8 @@ class Pitch {
       required this.title,
       required this.desc,
       required this.username,
-      required this.date,
+      required this.category,
+      // required this.date,
       // required this.userProfilePicture,
       // required this.videoPitch,
       required this.videoPitchUrl})
@@ -20,7 +21,8 @@ class Pitch {
   final String title;
   final String desc;
   final String username;
-  final String date;
+  final String category;
+  // final String date;
   // final File userProfilePicture;
   // final File videoPitch;
   final String videoPitchUrl;

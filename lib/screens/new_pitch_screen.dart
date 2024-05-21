@@ -15,6 +15,10 @@ class NewPitchScreen extends ConsumerStatefulWidget {
 }
 
 class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
+  final TextEditingController _businessNameTextController =
+      TextEditingController();
+  final TextEditingController _businessCategoryTextController =
+      TextEditingController();
   final TextEditingController _pitchTitleTextController =
       TextEditingController();
   final TextEditingController _pitchDescTextController =
@@ -26,61 +30,29 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
   void dispose() {
     _pitchTitleTextController.dispose();
     _pitchDescTextController.dispose();
+    _businessNameTextController.dispose();
+    _businessCategoryTextController.dispose();
     // _te
 
     super.dispose();
   }
 
   void _submitPitch() async {
-    final String enteredPitchTitle = _pitchTitleTextController.text;
-    final String enteredPitchDesc = _pitchDescTextController.text;
+    final String enteredBusinessName = _businessNameTextController.text.trim();
+    final String enteredBusinessCategory =
+        _businessCategoryTextController.text.trim();
+    final String enteredPitchTitle = _pitchTitleTextController.text.trim();
+    final String enteredPitchDesc = _pitchDescTextController.text.trim();
 
-    if (enteredPitchTitle.trim().isEmpty && enteredPitchDesc.trim().isEmpty) {
+    if (enteredPitchTitle.isEmpty ||
+        enteredPitchDesc.isEmpty ||
+        enteredBusinessName.isEmpty ||
+        enteredBusinessCategory.isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            "You must fill the title and the description of your pitch",
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
-            textAlign: TextAlign.left,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          dismissDirection: DismissDirection.horizontal,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7)),
-          ),
-        ),
-      );
-      return;
-    } else if (enteredPitchTitle.trim().isEmpty) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "You must fill the title of your pitch",
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 15),
-            textAlign: TextAlign.left,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          dismissDirection: DismissDirection.horizontal,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7)),
-          ),
-        ),
-      );
-      return;
-    } else if (enteredPitchDesc.trim().isEmpty) {
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "You must fill the title of your pitch",
+            "You must fill the form for your pitch",
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
@@ -121,14 +93,21 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     FocusScope.of(context).unfocus();
     _pitchTitleTextController.clear();
     _pitchDescTextController.clear();
+    _businessNameTextController.clear();
+    _businessCategoryTextController.clear();
+
+    //todo impolement below code with user id and stuffs
+    // final Reference storageRefPitch = FirebaseStorage.instance
+    //     .ref()
+    //     .child('user_pitches')
+    //     .child(enteredPitchTitle)
+    //     .child("$enteredPitchTitle Video.mp4");
+    //todo make the user unique id as a child. so all of them in the same folder
 
     final Reference storageRefPitch = FirebaseStorage.instance
         .ref()
-        .child('user_pitches')
-        .child(enteredPitchTitle)
+        .child('user_pitches_dummy')
         .child("$enteredPitchTitle Video.mp4");
-    //todo make the user unique id as a child. so all of them in the same folder
-
     // await storageRefPitch.putString(
     //   enteredPitchDesc,
     //   metadata: SettableMetadata(
@@ -136,7 +115,12 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     // );
     await storageRefPitch.putFile(
       _selectedVideo!,
-      SettableMetadata(customMetadata: {'Pitch description': enteredPitchDesc}),
+      SettableMetadata(customMetadata: {
+        'Business name': enteredBusinessName,
+        'Business category': enteredBusinessCategory,
+        'Pitch title': enteredPitchTitle,
+        'Pitch description': enteredPitchDesc
+      }),
     );
 
     //     final String downloadURL = await storageRefPitch.getDownloadURL();
@@ -171,10 +155,26 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
         child: Column(
           children: [
             TextField(
+              controller: _businessNameTextController,
+              decoration: const InputDecoration(
+                labelText: "Business name",
+              ),
+              style: const TextStyle(color: Colors.white),
+            ),
+            TextField(
+              controller: _businessCategoryTextController,
+              decoration: const InputDecoration(
+                labelText: "Business category",
+              ),
+              // maxLength: 20,
+              style: const TextStyle(color: Colors.white),
+            ),
+            TextField(
               controller: _pitchTitleTextController,
               decoration: const InputDecoration(
                 labelText: "Pitch title",
               ),
+              // maxLength: 30,
               style: const TextStyle(color: Colors.white),
             ),
             TextField(
@@ -182,6 +182,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               decoration: const InputDecoration(
                 labelText: "Pitch description",
               ),
+              // maxLength: 50,
               style: const TextStyle(color: Colors.white),
             ),
             const SizedBox(

@@ -124,13 +124,7 @@ class _VideoInputState extends ConsumerState<VideoInput> {
           ));
     }
 
-    return Column(
-      children: [
-        Container(
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: content),
-      ],
-    );
+    return Container(
+        width: double.infinity, alignment: Alignment.center, child: content);
   }
 }
