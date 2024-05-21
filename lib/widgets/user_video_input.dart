@@ -18,6 +18,26 @@ class VideoInput extends ConsumerStatefulWidget {
 class _VideoInputState extends ConsumerState<VideoInput> {
   File? _selectedVideo;
 
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller = VideoPlayerController.networkUrl(Uri.parse(
+      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    ));
+    // _controller = VideoPlayerController.file(_selectedVideo!);
+    _initializeVideoPlayerFuture = _controller.initialize();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   void _chooseVideo() async {
     final ImagePicker videoPicker = ImagePicker();
 
@@ -36,12 +56,39 @@ class _VideoInputState extends ConsumerState<VideoInput> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content = TextButton.icon(
-        onPressed: () {
-          _chooseVideo();
-        },
-        icon: const Icon(Icons.video_camera_back_outlined),
-        label: const Text("Take a video"));
+    // Widget content = TextButton.icon(
+    //     onPressed: () {
+    //       _chooseVideo();
+    //     },
+    //     icon: const Icon(Icons.video_camera_back_outlined),
+    //     label: const Text("Take a video"));
+
+    Widget content = FutureBuilder(
+      future: _initializeVideoPlayerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                if (_controller.value.isPlaying) {
+                  _controller.pause();
+                } else {
+                  _controller.play();
+                }
+              });
+            },
+            child: AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            ),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
 
     if (_selectedVideo != null) {
       content = GestureDetector(
