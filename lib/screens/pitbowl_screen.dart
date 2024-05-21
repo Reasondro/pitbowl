@@ -68,7 +68,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.notifications_active),
+            icon: const Icon(Icons.notifications_none_outlined),
           ),
         ],
       ),

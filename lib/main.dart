@@ -11,8 +11,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/screens/new_pitch_screen.dart';
 
 final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
-    seedColor: const Color.fromARGB(255, 48, 0, 104),
-    brightness: Brightness.light);
+    // seedColor: const Color.fromARGB(255, 48, 0, 104),
+    // seedColor: const Color.fromARGB(255, 255, 227, 135),
+    seedColor: const Color.fromARGB(255, 135, 255, 249),
+    brightness: Brightness.dark);
 
 final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
@@ -24,13 +26,17 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
       labelSmall:
           GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 10),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       // color: const Color.fromARGB(255, 41, 0, 94),
-      color: Colors.white,
-      foregroundColor: Color.fromARGB(255, 41, 0, 94),
+      // color: Colors.white,
+      color: Colors.black,
+      // foregroundColor: Color.fromARGB(255, 41, 0, 94),
+      // foregroundColor: Color.fromARGB(255, 172, 154, 55),
+      foregroundColor: pitbowlColorTheme.primary,
     ),
     navigationBarTheme: NavigationBarThemeData(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       // indicatorColor: const Color.fromARGB(255, 41, 0, 94),
       indicatorColor: pitbowlColorTheme.secondaryContainer,
       indicatorShape: const RoundedRectangleBorder(
@@ -44,7 +50,8 @@ final ThemeData pitbowlTheme = ThemeData().copyWith(
         ),
       ),
     ),
-    scaffoldBackgroundColor: Colors.white);
+    // scaffoldBackgroundColor: Colors.white
+    scaffoldBackgroundColor: Colors.black);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

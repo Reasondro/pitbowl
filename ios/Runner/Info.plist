@@ -3,6 +3,12 @@
 <plist version="1.0">
 <dict>
 	<!-- ! MUST ADD THIS -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
+	</dict>
+	<!-- ! MUST ADD THIS -->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The location for your favorite place</string>
 	<!-- ! MUST ADD THIS -->
