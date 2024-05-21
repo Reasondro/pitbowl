@@ -95,6 +95,26 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
         ),
       );
       return;
+    } else if (_selectedVideo == null) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "You must choose a video for your pitch",
+            style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 15),
+            textAlign: TextAlign.left,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          dismissDirection: DismissDirection.horizontal,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(7)),
+          ),
+        ),
+      );
+      return;
     }
 
     //? if succefully filled
@@ -105,13 +125,18 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     final Reference storageRefPitch = FirebaseStorage.instance
         .ref()
         .child('user_pitches')
-        .child(enteredPitchTitle);
+        .child(enteredPitchTitle)
+        .child("$enteredPitchTitle Video.mp4");
     //todo make the user unique id as a child. so all of them in the same folder
 
-    await storageRefPitch.putString(
-      enteredPitchDesc,
-      metadata: SettableMetadata(
-          customMetadata: {'Pitch description': enteredPitchDesc}),
+    // await storageRefPitch.putString(
+    //   enteredPitchDesc,
+    //   metadata: SettableMetadata(
+    //       customMetadata: {'Pitch description': enteredPitchDesc}),
+    // );
+    await storageRefPitch.putFile(
+      _selectedVideo!,
+      SettableMetadata(customMetadata: {'Pitch description': enteredPitchDesc}),
     );
 
     //     final String downloadURL = await storageRefPitch.getDownloadURL();
@@ -159,6 +184,9 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               ),
               style: const TextStyle(color: Colors.white),
             ),
+            const SizedBox(
+              height: 15,
+            ),
             VideoInput(onPickVideo: (video) {
               _selectedVideo = video;
             }),
@@ -166,10 +194,15 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               height: 15,
             ),
             ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(
+                  Theme.of(context).colorScheme.primary.withAlpha(25),
+                ),
+              ),
               onPressed: () {
                 _submitPitch();
               },
-              child: const Text("Pitch"),
+              child: const Text("Pitch it!"),
             ),
           ],
         ),

@@ -26,15 +26,16 @@ class _VideoInputState extends ConsumerState<VideoInput> {
     super.initState();
 
     _controller = VideoPlayerController.networkUrl(Uri.parse(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+      '',
     ));
-    // _controller = VideoPlayerController.file(_selectedVideo!);
+    // _controller = VideoPlayerController();
     _initializeVideoPlayerFuture = _controller.initialize();
   }
 
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 
@@ -47,8 +48,16 @@ class _VideoInputState extends ConsumerState<VideoInput> {
     if (pickedVideo == null) {
       return;
     }
+
     setState(() {
       _selectedVideo = File(pickedVideo.path);
+
+      if (_controller.value.isInitialized) {
+        _controller.dispose();
+      }
+      _controller = VideoPlayerController.file(_selectedVideo!);
+      _initializeVideoPlayerFuture = _controller.initialize();
+      _controller.play();
     });
 
     widget.onPickVideo(_selectedVideo!);
@@ -56,38 +65,15 @@ class _VideoInputState extends ConsumerState<VideoInput> {
 
   @override
   Widget build(BuildContext context) {
-    // Widget content = TextButton.icon(
-    //     onPressed: () {
-    //       _chooseVideo();
-    //     },
-    //     icon: const Icon(Icons.video_camera_back_outlined),
-    //     label: const Text("Take a video"));
-
-    Widget content = FutureBuilder(
-      future: _initializeVideoPlayerFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                if (_controller.value.isPlaying) {
-                  _controller.pause();
-                } else {
-                  _controller.play();
-                }
-              });
-            },
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            ),
-          );
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    Widget content = TextButton.icon(
+      style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+              Theme.of(context).colorScheme.primary.withAlpha(25))),
+      onPressed: () {
+        _chooseVideo();
       },
+      icon: const Icon(Icons.video_camera_back_outlined),
+      label: const Text("Choose a video"),
     );
 
     if (_selectedVideo != null) {
@@ -95,24 +81,56 @@ class _VideoInputState extends ConsumerState<VideoInput> {
           onTap: () {
             _chooseVideo();
           },
-          child: Text(_selectedVideo.toString())
-          // Image.file(
-          //   _selectedVideo!,
-          //   fit: BoxFit.cover,
-          //   width: double.infinity,
-          //   height: double.infinity,
-          // ),
-          );
+          child: Expanded(
+            child: Column(
+              children: [
+                FutureBuilder(
+                  future: _initializeVideoPlayerFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (_controller.value.isPlaying) {
+                              _controller.pause();
+                            } else {
+                              _controller.play();
+                            }
+                          });
+                        },
+                        child: AspectRatio(
+                          aspectRatio: _controller.value.aspectRatio,
+                          child: VideoPlayer(_controller),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ElevatedButton.icon(
+                    onPressed: () {
+                      _chooseVideo();
+                    },
+                    label: const Text("Choose another video"),
+                    icon: const Icon(Icons.video_camera_back_outlined)),
+              ],
+            ),
+          ));
     }
 
-    return Container(
-        decoration: BoxDecoration(
-            border: Border.all(
-                width: 1,
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.2))),
-        height: 250,
-        width: double.infinity,
-        alignment: Alignment.center,
-        child: content);
+    return Column(
+      children: [
+        Container(
+            width: double.infinity,
+            alignment: Alignment.center,
+            child: content),
+      ],
+    );
   }
 }
