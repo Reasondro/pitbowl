@@ -14,6 +14,8 @@ class PitbowlScreen extends ConsumerStatefulWidget {
 }
 
 class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
+
+  String activeScreenTitle = "Pitbowl";
   int currentScreenIndex = 0;
 
   void _postNewPitch() {
@@ -58,7 +60,6 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     }
   }
 
-  String activeScreenTitle = "Pitbowl";
 
   @override
   Widget build(BuildContext context) {
