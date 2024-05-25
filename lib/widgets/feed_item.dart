@@ -55,8 +55,7 @@ class _FeedItemState extends ConsumerState<FeedItem> {
           SizedBox(
             width: double.infinity,
             height: 250,
-            child: Expanded(
-              child: FutureBuilder(
+            child:  FutureBuilder(
                 future: _initializeVideoPlayerFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
@@ -81,7 +80,7 @@ class _FeedItemState extends ConsumerState<FeedItem> {
                     );
                   }
                 },
-              ),
+             
             ),
           ),
           const SizedBox(

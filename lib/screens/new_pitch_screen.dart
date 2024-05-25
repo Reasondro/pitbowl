@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pitbowl/model/pitch.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pitbowl/widgets/user_video_input.dart';
@@ -25,6 +24,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       TextEditingController();
 
   File? _selectedVideo;
+  bool _isUploading = false;
 
   @override
   void dispose() {
@@ -91,10 +91,10 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
 
     //? if succefully filled
     FocusScope.of(context).unfocus();
-    _pitchTitleTextController.clear();
-    _pitchDescTextController.clear();
-    _businessNameTextController.clear();
-    _businessCategoryTextController.clear();
+    // _pitchTitleTextController.clear(); //? for now we clear this
+    // _pitchDescTextController.clear();
+    // _businessNameTextController.clear();
+    // _businessCategoryTextController.clear();
 
     //todo impolement below code with user id and stuffs
     // final Reference storageRefPitch = FirebaseStorage.instance
@@ -104,24 +104,51 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     //     .child("$enteredPitchTitle Video.mp4");
     //todo make the user unique id as a child. so all of them in the same folder
 
-    final Reference storageRefPitch = FirebaseStorage.instance
-        .ref()
-        .child('user_pitches_dummy')
-        .child("$enteredPitchTitle Video.mp4");
     // await storageRefPitch.putString(
     //   enteredPitchDesc,
     //   metadata: SettableMetadata(
     //       customMetadata: {'Pitch description': enteredPitchDesc}),
     // );
-    await storageRefPitch.putFile(
-      _selectedVideo!,
-      SettableMetadata(customMetadata: {
-        'Business name': enteredBusinessName,
-        'Business category': enteredBusinessCategory,
-        'Pitch title': enteredPitchTitle,
-        'Pitch description': enteredPitchDesc
-      }),
-    );
+    try {
+      setState(() {
+        _isUploading = true;
+      });
+
+      final Reference storageRefPitch = FirebaseStorage.instance
+          .ref()
+          .child('user_pitches_dummy')
+          .child("$enteredPitchTitle Video.mp4");
+
+      await storageRefPitch.putFile(
+        _selectedVideo!,
+        SettableMetadata(customMetadata: {
+          'Business name': enteredBusinessName,
+          'Business category': enteredBusinessCategory,
+          'Pitch title': enteredPitchTitle,
+          'Pitch description': enteredPitchDesc
+        }),
+      );
+    } on FirebaseException catch (error) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).clearSnackBars(); //? ⬇️ show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message ?? "An error occurred!"),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          // duration: Durations.long3,
+          dismissDirection: DismissDirection.down,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(7)),
+          ),
+        ),
+      );
+
+      setState(() {
+        _isUploading = false;
+      });
+    }
 
     //     final String downloadURL = await storageRefPitch.getDownloadURL();
     // final http.Response downloadData = await http.get(Uri.parse(downloadURL));
@@ -194,17 +221,20 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
             const SizedBox(
               height: 15,
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(
-                  Theme.of(context).colorScheme.primary.withAlpha(25),
+            if (_isUploading)
+              const CircularProgressIndicator()
+            else
+              ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    Theme.of(context).colorScheme.primary.withAlpha(25),
+                  ),
                 ),
+                onPressed: () {
+                  _submitPitch();
+                },
+                child: const Text("Pitch it!"),
               ),
-              onPressed: () {
-                _submitPitch();
-              },
-              child: const Text("Pitch it!"),
-            ),
           ],
         ),
       ),

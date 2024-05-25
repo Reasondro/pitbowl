@@ -42,12 +42,12 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
         FirebaseStorage.instance.ref().child('user_pitches_dummy');
 
     final listResult = await firebaseStorageRef.listAll();
-    var metadata;
-    var downloadURL;
-    var pitchBusinessName;
-    var businessCategory;
-    var pitchTitle;
-    var pitchDescription;
+    FullMetadata metadata;
+    String downloadURL;
+    String? pitchBusinessName;
+    String? businessCategory;
+    String? pitchTitle;
+    String? pitchDescription;
 
     Pitch pitch;
     for (var ref in listResult.items) {
@@ -58,21 +58,22 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       businessCategory = metadata.customMetadata!['Business category'];
       pitchTitle = metadata.customMetadata!['Pitch title'];
       pitchDescription = metadata.customMetadata!['Pitch description'];
-      print('Download URL: $downloadURL');
-      print('Business name: $pitchBusinessName');
-      print('Business category: $businessCategory');
-      print('Pitch title: $pitchTitle');
-      print('Pitch description: $pitchDescription');
+      // print('Download URL: $downloadURL');
+      // print('Business name: $pitchBusinessName');
+      // print('Business category: $businessCategory');
+      // print('Pitch title: $pitchTitle');
+      // print('Pitch description: $pitchDescription');
 
       pitch = Pitch(
-          username: pitchBusinessName,
-          category: businessCategory,
-          title: pitchTitle,
-          desc: pitchDescription,
+          username: pitchBusinessName!,
+          category: businessCategory!,
+          title: pitchTitle!,
+          desc: pitchDescription!,
           videoPitchUrl: downloadURL);
 
       setState(() {
         pitches.add(pitch);
+        // pitches.reversed.toList();
         //  pitches = pitches.reversed.toList();
         // pitches = [pitch, ...pitches];
       });
