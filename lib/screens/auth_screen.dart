@@ -41,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text(
-            'Please enter email, username and password',
+            'Please enter your email, username and password',
             style: TextStyle(
                 color: Colors.white,
                 // fontWeight: FontWeight.normal,

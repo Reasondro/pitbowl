@@ -99,6 +99,9 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
 
   void _selectScreen(int index) {
     setState(() {
+      if (index == 2) {
+        return;
+      }
       currentScreenIndex = index;
     });
   }
