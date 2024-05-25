@@ -62,7 +62,9 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
           backgroundColor: Theme.of(context).colorScheme.primary,
           dismissDirection: DismissDirection.horizontal,
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(7)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(7),
+            ),
           ),
         ),
       );

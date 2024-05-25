@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/widgets/feed_list.dart';
 import 'firebase_options.dart';
 
@@ -68,12 +69,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pitbowl',
-      theme: pitbowlTheme,
-      home: const PitbowlScreen(),
-      // home: const NewPostScreen(),
-      // home: const FeedList(),
-      // ,initialRoute: , //todo , try to learn from sanudi project
-    );
+        title: 'Pitbowl', theme: pitbowlTheme, home: const AuthScreen()
+        // const PitbowlScreen(),
+        // home: const NewPostScreen(),
+        // home: const FeedList(),
+        // ,initialRoute: , //todo , try to learn from sanudi project
+        );
   }
 }
