@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
+import 'package:pitbowl/screens/splash_screen.dart';
 import 'package:pitbowl/widgets/feed_list.dart';
 import 'firebase_options.dart';
 
@@ -69,7 +71,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Pitbowl', theme: pitbowlTheme, home: const AuthScreen()
+        title: 'Pitbowl', theme: pitbowlTheme, 
+        home: 
+        StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, snapshot)
+        {
+          if(snapshot.connectionState == ConnectionState.waiting)
+          {
+            return const SplashScreen();
+          }
+          if(snapshot.hasData)
+          {
+            return const PitbowlScreen();
+          }
+          return const AuthScreen();
+        }
+        
+        )
+        // const AuthScreen()
         // const PitbowlScreen(),
         // home: const NewPostScreen(),
         // home: const FeedList(),

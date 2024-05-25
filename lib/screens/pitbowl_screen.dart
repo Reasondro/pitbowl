@@ -6,6 +6,9 @@ import 'package:pitbowl/screens/new_pitch_screen.dart';
 import 'package:pitbowl/widgets/feed_list.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+final _firebaseAuth = FirebaseAuth.instance;
 
 class PitbowlScreen extends ConsumerStatefulWidget {
   const PitbowlScreen({super.key});
@@ -140,10 +143,35 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              loadFile();
+              // loadFile();
             },
             icon: const Icon(Icons.notifications_none_outlined),
           ),
+          IconButton(
+            onPressed: () {
+              _firebaseAuth.signOut();
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "You have been signed out",
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                    textAlign: TextAlign.left,
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  dismissDirection: DismissDirection.horizontal,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7)),
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.exit_to_app_outlined),
+            color: Theme.of(context).colorScheme.onError,
+          )
         ],
       ),
       body: RefreshIndicator(
