@@ -55,32 +55,38 @@ class _FeedItemState extends ConsumerState<FeedItem> {
           SizedBox(
             width: double.infinity,
             height: 250,
-            child:  FutureBuilder(
-                future: _initializeVideoPlayerFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (_controller.value.isPlaying) {
-                            _controller.pause();
-                          } else {
-                            _controller.play();
-                          }
-                        });
-                      },
-                      child: AspectRatio(
-                        aspectRatio: _controller.value.aspectRatio,
-                        child: VideoPlayer(_controller),
+            child: FutureBuilder(
+              future: _initializeVideoPlayerFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (_controller.value.isPlaying) {
+                          _controller.pause();
+                        } else {
+                          _controller.play();
+                        }
+                      });
+                    },
+                    child: AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: SizedBox(
+                          height: _controller.value.size.height,
+                          width: _controller.value.size.width,
+                          child: VideoPlayer(_controller),
+                        ),
                       ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-             
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
           ),
           const SizedBox(
@@ -88,8 +94,8 @@ class _FeedItemState extends ConsumerState<FeedItem> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 5),
-            child:  Text(
-             widget.pitch.title,
+            child: Text(
+              widget.pitch.title,
               style: const TextStyle(color: Colors.white),
               textAlign: TextAlign.left,
             ),

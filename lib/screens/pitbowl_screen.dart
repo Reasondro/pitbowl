@@ -89,7 +89,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     // final pitchDescription = metadata.customMetadata!['Pitch description'];
     // print(
     //     'Pitch description: ${metadata.customMetadata!['Pitch description']}');
-    print('Pitches: $pitches');
+    // print('Pitches: $pitches');
   }
 
   void _postNewPitch() {

@@ -25,10 +25,10 @@ class _VideoInputState extends ConsumerState<VideoInput> {
   void initState() {
     super.initState();
 
+    //TODO might add a temp image (file image probably)
     _controller = VideoPlayerController.networkUrl(Uri.parse(
       '',
     ));
-    // _controller = VideoPlayerController();
     _initializeVideoPlayerFuture = _controller.initialize();
   }
 
@@ -78,50 +78,62 @@ class _VideoInputState extends ConsumerState<VideoInput> {
 
     if (_selectedVideo != null) {
       content = GestureDetector(
-          onTap: () {
-            _chooseVideo();
-          },
-          child: Expanded(
-            child: Column(
-              children: [
-                FutureBuilder(
-                  future: _initializeVideoPlayerFuture,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (_controller.value.isPlaying) {
-                              _controller.pause();
-                            } else {
-                              _controller.play();
-                            }
-                          });
-                        },
-                        child: AspectRatio(
-                          aspectRatio: _controller.value.aspectRatio,
-                          child: VideoPlayer(_controller),
+        onTap: () {
+          _chooseVideo();
+        },
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 250,
+              child: FutureBuilder(
+                future: _initializeVideoPlayerFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (_controller.value.isPlaying) {
+                            _controller.pause();
+                          } else {
+                            _controller.play();
+                          }
+                        });
+                      },
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          alignment: Alignment.center,
+                          child: SizedBox(
+                            width:
+                                _controller.value.size.width, // Original width
+                            height: _controller.value.size.height,
+                            child: VideoPlayer(_controller),
+                          ),
                         ),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                ElevatedButton.icon(
-                    onPressed: () {
-                      _chooseVideo();
-                    },
-                    label: const Text("Choose another video"),
-                    icon: const Icon(Icons.video_camera_back_outlined)),
-              ],
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
             ),
-          ));
+            const SizedBox(
+              height: 15,
+            ),
+            ElevatedButton.icon(
+                onPressed: () {
+                  _chooseVideo();
+                },
+                label: const Text("Choose another video"),
+                icon: const Icon(Icons.video_camera_back_outlined)),
+          ],
+        ),
+      );
     }
 
     return Container(

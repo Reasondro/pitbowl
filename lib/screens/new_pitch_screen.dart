@@ -181,63 +181,65 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            TextField(
-              controller: _businessNameTextController,
-              decoration: const InputDecoration(
-                labelText: "Business name",
-              ),
-              style: const TextStyle(color: Colors.white),
-            ),
-            TextField(
-              controller: _businessCategoryTextController,
-              decoration: const InputDecoration(
-                labelText: "Business category",
-              ),
-              // maxLength: 20,
-              style: const TextStyle(color: Colors.white),
-            ),
-            TextField(
-              controller: _pitchTitleTextController,
-              decoration: const InputDecoration(
-                labelText: "Pitch title",
-              ),
-              // maxLength: 30,
-              style: const TextStyle(color: Colors.white),
-            ),
-            TextField(
-              controller: _pitchDescTextController,
-              decoration: const InputDecoration(
-                labelText: "Pitch description",
-              ),
-              // maxLength: 50,
-              style: const TextStyle(color: Colors.white),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            VideoInput(onPickVideo: (video) {
-              _selectedVideo = video;
-            }),
-            const SizedBox(
-              height: 15,
-            ),
-            if (_isUploading)
-              const CircularProgressIndicator()
-            else
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Theme.of(context).colorScheme.primary.withAlpha(25),
-                  ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                controller: _businessNameTextController,
+                decoration: const InputDecoration(
+                  labelText: "Business name",
                 ),
-                onPressed: () {
-                  _submitPitch();
-                },
-                child: const Text("Pitch it!"),
+                style: const TextStyle(color: Colors.white),
               ),
-          ],
+              TextField(
+                controller: _businessCategoryTextController,
+                decoration: const InputDecoration(
+                  labelText: "Business category",
+                ),
+                // maxLength: 20,
+                style: const TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _pitchTitleTextController,
+                decoration: const InputDecoration(
+                  labelText: "Pitch title",
+                ),
+                // maxLength: 30,
+                style: const TextStyle(color: Colors.white),
+              ),
+              TextField(
+                controller: _pitchDescTextController,
+                decoration: const InputDecoration(
+                  labelText: "Pitch description",
+                ),
+                // maxLength: 50,
+                style: const TextStyle(color: Colors.white),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              VideoInput(onPickVideo: (video) {
+                _selectedVideo = video;
+              }),
+              const SizedBox(
+                height: 15,
+              ),
+              if (_isUploading)
+                const CircularProgressIndicator()
+              else
+                ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context).colorScheme.primary.withAlpha(25),
+                    ),
+                  ),
+                  onPressed: () {
+                    _submitPitch();
+                  },
+                  child: const Text("Pitch it!"),
+                ),
+            ],
+          ),
         ),
       ),
     );
