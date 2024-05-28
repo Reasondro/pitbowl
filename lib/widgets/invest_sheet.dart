@@ -25,9 +25,9 @@ class _InvestSheetState extends State<InvestSheet> {
     final String enteredAmount = _investmentAmountController.text.trim();
     _investmentAmountController.clear();
     FocusScope.of(context).unfocus();
-    print(enteredAmount);
+    // print(enteredAmount);
     if (enteredAmount.isEmpty) {
-      print("empty");
+      // print("empty");
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
