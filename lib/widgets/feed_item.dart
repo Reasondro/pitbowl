@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pitbowl/widgets/invest_sheet.dart';
 import 'package:video_player/video_player.dart';
 import 'package:pitbowl/model/pitch.dart';
 
@@ -34,6 +36,20 @@ class _FeedItemState extends ConsumerState<FeedItem> {
     _controller.dispose();
 
     super.dispose();
+  }
+
+  void openInvestSheetOverlay(
+    BuildContext context,
+  ) {
+    showModalBottomSheet(
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+      isScrollControlled: true,
+      useSafeArea: true,
+      context: context,
+      builder: (context) {
+        return InvestSheet(pitch: widget.pitch);
+      },
+    );
   }
 
   @override
@@ -132,7 +148,9 @@ class _FeedItemState extends ConsumerState<FeedItem> {
                   backgroundColor: WidgetStateProperty.all(
                       Theme.of(context).colorScheme.primary.withAlpha(255)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  openInvestSheetOverlay(context);
+                },
                 label: const Text(
                   "Invest",
                   style: TextStyle(
