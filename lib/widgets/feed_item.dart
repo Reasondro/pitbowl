@@ -52,6 +52,8 @@ class _FeedItemState extends ConsumerState<FeedItem> {
     );
   }
 
+  bool isFavorite = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -76,6 +78,11 @@ class _FeedItemState extends ConsumerState<FeedItem> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        isFavorite = !isFavorite;
+                      });
+                    },
                     onTap: () {
                       setState(() {
                         if (_controller.value.isPlaying) {
@@ -128,9 +135,17 @@ class _FeedItemState extends ConsumerState<FeedItem> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
-                color: Theme.of(context).colorScheme.secondary,
-                icon: const Icon(Icons.favorite_outline),
-                onPressed: () {},
+                color: isFavorite
+                    ? Colors.red
+                    : Theme.of(context).colorScheme.secondary,
+                icon: isFavorite
+                    ? const Icon(Icons.favorite)
+                    : const Icon(Icons.favorite_border_outlined),
+                onPressed: () {
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+                },
               ),
               IconButton(
                 color: Theme.of(context).colorScheme.secondary,
