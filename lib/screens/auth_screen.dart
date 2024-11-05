@@ -46,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
             style: TextStyle(
                 color: Colors.white,
                 // fontWeight: FontWeight.normal,
-                fontSize: 15),
+                fontSize: 13),
             textAlign: TextAlign.left,
           ),
           backgroundColor: Theme.of(context).colorScheme.onError,
@@ -109,7 +109,7 @@ class _AuthScreenState extends State<AuthScreen> {
             style: const TextStyle(
                 color: Colors.white,
                 // fontWeight: FontWeight.bold,
-                fontSize: 15),
+                fontSize: 13),
             textAlign: TextAlign.left,
           ),
           backgroundColor: Theme.of(context).colorScheme.onError,
@@ -122,11 +122,11 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       );
     } catch (e) {
-      print(e);
+      // print(e);
     }
 
-    print(
-        "Successfully authenticated $username with email $email and password $password");
+    // print(
+    //     "Successfully authenticated $username with email $email and password $password");
     setState(() {
       _isAuthenticating = false;
     });
@@ -163,7 +163,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Email" : "Your email",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
                       height: 5,
@@ -199,7 +199,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Username" : "Your username",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
                       height: 5,
@@ -236,7 +236,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Password" : "Your password",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
                       height: 5,

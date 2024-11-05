@@ -198,7 +198,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             ),
             NavigationDestination(
               icon: Icon(Icons.movie_creation_outlined),
-              label: "Pitch!",
+              label: "Pitch",
             ),
             NavigationDestination(
               icon: Icon(Icons.bar_chart_rounded),

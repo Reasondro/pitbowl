@@ -56,7 +56,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
-                fontSize: 15),
+                fontSize: 13),
             textAlign: TextAlign.left,
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -78,7 +78,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontWeight: FontWeight.bold,
-                fontSize: 15),
+                fontSize: 13),
             textAlign: TextAlign.left,
           ),
           backgroundColor: Theme.of(context).colorScheme.primary,
@@ -194,21 +194,19 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                       "Business Name",
                       style: TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 5,
                     ),
                     TextField(
                       controller: _businessNameTextController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        filled: true,
-                        fillColor:
-                            Theme.of(context).colorScheme.surfaceContainer,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -216,8 +214,9 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                               color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 16.0),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216),
+                          fontSize: 16.0),
                     ),
                   ],
                 ),
@@ -231,21 +230,19 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                       "Business category",
                       style: TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 5,
                     ),
                     TextField(
                       controller: _businessCategoryTextController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        filled: true,
-                        fillColor:
-                            Theme.of(context).colorScheme.surfaceContainer,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -253,7 +250,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                               color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
                     ),
                   ],
                 ),
@@ -267,21 +265,19 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                       "Pitch title",
                       style: TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 5,
                     ),
                     TextField(
                       controller: _pitchTitleTextController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        filled: true,
-                        fillColor:
-                            Theme.of(context).colorScheme.surfaceContainer,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -289,7 +285,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                               color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
                     ),
                   ],
                 ),
@@ -303,21 +300,19 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                       "Pitch description",
                       style: TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 15),
+                          fontSize: 13),
                     ),
                     const SizedBox(
-                      height: 2,
+                      height: 5,
                     ),
                     TextField(
                       controller: _pitchDescTextController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.never,
-                        filled: true,
-                        fillColor:
-                            Theme.of(context).colorScheme.surfaceContainer,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide.none,
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -325,7 +320,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                               color: Theme.of(context).colorScheme.primary),
                         ),
                       ),
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
                     ),
                   ],
                 ),
@@ -357,7 +353,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                   label: const Text(
                     "Pitch it!",
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
