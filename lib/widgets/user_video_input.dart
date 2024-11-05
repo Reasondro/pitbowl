@@ -82,6 +82,7 @@ class _VideoInputState extends ConsumerState<VideoInput> {
           _chooseVideo();
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               width: double.infinity,
@@ -137,6 +138,8 @@ class _VideoInputState extends ConsumerState<VideoInput> {
     }
 
     return Container(
-        width: double.infinity, alignment: Alignment.center, child: content);
+        width: double.infinity,
+        alignment: Alignment.centerLeft,
+        child: content);
   }
 }

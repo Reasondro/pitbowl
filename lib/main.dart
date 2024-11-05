@@ -21,26 +21,20 @@ final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
 
 final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
-    textTheme: GoogleFonts.alegreyaSansTextTheme().copyWith(
+    textTheme: GoogleFonts.latoTextTheme().copyWith(
       titleLarge:
           GoogleFonts.alfaSlabOne(fontWeight: FontWeight.w300, fontSize: 35),
       titleMedium:
-          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 30),
+          GoogleFonts.quicksand(fontWeight: FontWeight.bold, fontSize: 30),
       labelSmall:
-          GoogleFonts.alegreyaSans(fontWeight: FontWeight.bold, fontSize: 15),
+          GoogleFonts.quicksand(fontWeight: FontWeight.bold, fontSize: 15),
     ),
     appBarTheme: AppBarTheme(
-      // color: const Color.fromARGB(255, 41, 0, 94),
-      // color: Colors.white,
       color: Colors.black,
-      // foregroundColor: Color.fromARGB(255, 41, 0, 94),
-      // foregroundColor: Color.fromARGB(255, 172, 154, 55),
       foregroundColor: pitbowlColorTheme.primary,
     ),
     navigationBarTheme: NavigationBarThemeData(
-      // backgroundColor: Colors.white,
       backgroundColor: Colors.black,
-      // indicatorColor: const Color.fromARGB(255, 41, 0, 94),
       indicatorColor: pitbowlColorTheme.secondaryContainer,
       indicatorShape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -71,22 +65,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Pitbowl', theme: pitbowlTheme, 
-        home: 
-        StreamBuilder(stream: FirebaseAuth.instance.authStateChanges(), builder: (ctx, snapshot)
-        {
-          if(snapshot.connectionState == ConnectionState.waiting)
-          {
-            return const SplashScreen();
-          }
-          if(snapshot.hasData)
-          {
-            return const PitbowlScreen();
-          }
-          return const AuthScreen();
-        }
-        
-        )
+        title: 'Pitbowl',
+        theme: pitbowlTheme,
+        home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SplashScreen();
+              }
+              if (snapshot.hasData) {
+                return const PitbowlScreen();
+              }
+              return const AuthScreen();
+            })
         // const AuthScreen()
         // const PitbowlScreen(),
         // home: const NewPostScreen(),

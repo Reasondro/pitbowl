@@ -179,41 +179,156 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
           "New Pitch",
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
+      body: Container(
+        margin: const EdgeInsets.only(top: 40, right: 20, left: 20),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TextField(
-                controller: _businessNameTextController,
-                decoration: const InputDecoration(
-                  labelText: "Business name",
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Business Name",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextField(
+                      controller: _businessNameTextController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        filled: true,
+                        fillColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 16.0),
+                    ),
+                  ],
                 ),
-                style: const TextStyle(color: Colors.white),
               ),
-              TextField(
-                controller: _businessCategoryTextController,
-                decoration: const InputDecoration(
-                  labelText: "Business category",
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Business category",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextField(
+                      controller: _businessCategoryTextController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        filled: true,
+                        fillColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
-                // maxLength: 20,
-                style: const TextStyle(color: Colors.white),
               ),
-              TextField(
-                controller: _pitchTitleTextController,
-                decoration: const InputDecoration(
-                  labelText: "Pitch title",
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Pitch title",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextField(
+                      controller: _pitchTitleTextController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        filled: true,
+                        fillColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
-                // maxLength: 30,
-                style: const TextStyle(color: Colors.white),
               ),
-              TextField(
-                controller: _pitchDescTextController,
-                decoration: const InputDecoration(
-                  labelText: "Pitch description",
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Pitch description",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    TextField(
+                      controller: _pitchDescTextController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        filled: true,
+                        fillColor:
+                            Theme.of(context).colorScheme.surfaceContainer,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
                 ),
-                // maxLength: 50,
-                style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(
                 height: 15,
@@ -227,16 +342,25 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               if (_isUploading)
                 const CircularProgressIndicator()
               else
-                ElevatedButton(
+                ElevatedButton.icon(
+                  icon: const Icon(
+                    Icons.aspect_ratio,
+                    color: Colors.black,
+                  ),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(
-                      Theme.of(context).colorScheme.primary.withAlpha(25),
-                    ),
+                        Theme.of(context).colorScheme.primary.withAlpha(255)),
                   ),
                   onPressed: () {
                     _submitPitch();
                   },
-                  child: const Text("Pitch it!"),
+                  label: const Text(
+                    "Pitch it!",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
                 ),
             ],
           ),
