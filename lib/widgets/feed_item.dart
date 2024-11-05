@@ -57,7 +57,7 @@ class _FeedItemState extends ConsumerState<FeedItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -68,7 +68,7 @@ class _FeedItemState extends ConsumerState<FeedItem> {
               icon: const Icon(Icons.more_vert),
               onPressed: () {},
             ),
-            contentPadding: const EdgeInsets.only(left: 10),
+            contentPadding: const EdgeInsets.only(left: 8),
           ),
           SizedBox(
             width: double.infinity,
@@ -116,15 +116,18 @@ class _FeedItemState extends ConsumerState<FeedItem> {
             height: 10,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 5),
+            padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.pitch.title,
               style: const TextStyle(color: Colors.white),
               textAlign: TextAlign.left,
             ),
           ),
+          const SizedBox(
+            height: 5,
+          ),
           Padding(
-            padding: const EdgeInsets.only(left: 5),
+            padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.pitch.desc,
               style: const TextStyle(color: Colors.white),
@@ -158,27 +161,30 @@ class _FeedItemState extends ConsumerState<FeedItem> {
                 onPressed: () {},
               ),
               const Spacer(),
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                      Theme.of(context).colorScheme.primary.withAlpha(255)),
-                ),
-                onPressed: () {
-                  openInvestSheetOverlay(context);
-                },
-                label: const Text(
-                  "Invest",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      // color: Theme.of(context).colorScheme.onPrimary),
-                      color: Colors.black),
-                ),
-                icon: const Icon(
-                  Icons.paid,
-                  // color: Color.fromARGB(255, 48, 197, 48),
-                  // color: Theme.of(context).colorScheme.onPrimary,
-                  color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.only(right: 7),
+                child: ElevatedButton.icon(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                        Theme.of(context).colorScheme.primary.withAlpha(255)),
+                  ),
+                  onPressed: () {
+                    openInvestSheetOverlay(context);
+                  },
+                  label: const Text(
+                    "Invest",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        // color: Theme.of(context).colorScheme.onPrimary),
+                        color: Colors.black),
+                  ),
+                  icon: const Icon(
+                    Icons.paid,
+                    // color: Color.fromARGB(255, 48, 198, 48),
+                    // color: Theme.of(context).colorScheme.onPrimary,
+                    color: Colors.black,
+                  ),
                 ),
               )
             ],

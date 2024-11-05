@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -144,7 +145,8 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Welcome to PITBOWL!",
+                // "Welcome to PITBOWL!",
+                "PITBOWL",
                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Theme.of(context).colorScheme.primary, fontSize: 50),
                 textAlign: TextAlign.center,
@@ -152,26 +154,114 @@ class _AuthScreenState extends State<AuthScreen> {
               const SizedBox(
                 height: 20,
               ),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
-                style: const TextStyle(color: Colors.white),
-                keyboardType: TextInputType.emailAddress,
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _isSignIn ? "Email" : "Your email",
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ],
+                ),
               ),
-              TextField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                    labelText: _isSignIn ? 'Username' : "Create your username"),
-                style: const TextStyle(color: Colors.white),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _isSignIn ? "Username" : "Your username",
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
 
-                // keyboardType: TextInputType.emailAddress,
+                      // keyboardType: TextInputType.emailAddress,
+                    ),
+                  ],
+                ),
               ),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                    labelText: _isSignIn ? 'Password' : "Create your password"),
-                style: const TextStyle(color: Colors.white),
-                obscureText: true,
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _isSignIn ? "Password" : "Your password",
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 232, 235, 236),
+                          fontSize: 15),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextField(
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: const BorderSide(
+                              color: Color.fromARGB(255, 230, 248, 248)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.primary),
+                        ),
+                      ),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 216, 216, 216)),
+                      obscureText: true,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 12,
@@ -183,13 +273,13 @@ class _AuthScreenState extends State<AuthScreen> {
                     _submit();
                   },
                   style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Theme.of(context).colorScheme.primaryContainer),
+                      backgroundColor: Theme.of(context).colorScheme.primary),
                   child: Text(
                     _isSignIn ? "Sign In" : "Sign Up",
-                    style: TextStyle(
-                        color:
-                            Theme.of(context).colorScheme.onPrimaryContainer),
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               if (!_isAuthenticating)

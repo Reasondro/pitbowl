@@ -21,13 +21,14 @@ final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
 
 final ThemeData pitbowlTheme = ThemeData().copyWith(
     colorScheme: pitbowlColorTheme,
-    textTheme: GoogleFonts.latoTextTheme().copyWith(
+    textTheme: GoogleFonts.plusJakartaSansTextTheme().copyWith(
       titleLarge:
-          GoogleFonts.alfaSlabOne(fontWeight: FontWeight.w300, fontSize: 35),
-      titleMedium:
-          GoogleFonts.quicksand(fontWeight: FontWeight.bold, fontSize: 30),
-      labelSmall:
-          GoogleFonts.quicksand(fontWeight: FontWeight.bold, fontSize: 15),
+          // GoogleFonts.libreBodoni(fontWeight: FontWeight.w600, fontSize: 35),
+          GoogleFonts.ibarraRealNova(fontWeight: FontWeight.bold, fontSize: 35),
+      titleMedium: GoogleFonts.plusJakartaSans(
+          fontWeight: FontWeight.bold, fontSize: 30),
+      labelSmall: GoogleFonts.plusJakartaSans(
+          fontWeight: FontWeight.bold, fontSize: 15),
     ),
     appBarTheme: AppBarTheme(
       color: Colors.black,
