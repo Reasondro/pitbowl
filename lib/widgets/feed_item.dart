@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/widgets/invest_sheet.dart';
 import 'package:video_player/video_player.dart';
 import 'package:pitbowl/model/pitch.dart';
+import 'package:intl/intl.dart';
 
 class FeedItem extends ConsumerStatefulWidget {
   const FeedItem({super.key, required this.pitch});
@@ -120,6 +121,19 @@ class _FeedItemState extends ConsumerState<FeedItem> {
           ),
           const SizedBox(
             height: 10,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Text(
+              DateFormat('dd MMMM yyyy')
+                  .format(widget.pitch.creationTime!.toLocal()),
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 129, 129, 129), fontSize: 13),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8),

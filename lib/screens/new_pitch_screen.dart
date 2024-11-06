@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'package:pitbowl/widgets/user_video_input.dart';
 
 class NewPitchScreen extends ConsumerStatefulWidget {
@@ -160,6 +161,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       return;
     }
     Navigator.pop(context);
+    // Navigator.pushReplacement(context,
+    //     MaterialPageRoute(builder: (context) => const PitbowlScreen()));
   }
 
   @override
@@ -182,11 +185,11 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       body: Padding(
         padding:
             const EdgeInsets.only(top: 40, right: 20, left: 20, bottom: 20),
-        child: SingleChildScrollView(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Column(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
@@ -343,10 +346,6 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                   const SizedBox(
                     height: 25,
                   ),
-                  // if (_isUploading)
-                  //   Container(
-                  //       alignment: Alignment.center,
-                  //       child: const CircularProgressIndicator()),
                   ElevatedButton.icon(
                     icon: const Icon(
                       Icons.aspect_ratio,
@@ -369,12 +368,12 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                   ),
                 ],
               ),
-              if (_isUploading)
-                Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()),
-            ],
-          ),
+            ),
+            if (_isUploading)
+              Container(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator()),
+          ],
         ),
       ),
     );

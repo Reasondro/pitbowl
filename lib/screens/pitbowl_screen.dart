@@ -3,10 +3,12 @@ import 'package:pitbowl/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/model/pitch.dart';
 import 'package:pitbowl/screens/new_pitch_screen.dart';
+import 'package:pitbowl/screens/splash_screen.dart';
 import 'package:pitbowl/widgets/feed_list.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pitbowl/widgets/pitch_placeholder.dart';
 
 final _firebaseAuth = FirebaseAuth.instance;
 
@@ -30,16 +32,13 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
   }
 
   List<Pitch> pitches = [];
+  bool isLoading = false;
 
   Future<void> loadFile() async {
     setState(() {
+      isLoading = true;
       pitches.clear();
     });
-    // final firebaseStorageRef = FirebaseStorage.instance
-    //     .ref()
-    //     .child('user_pitches')
-    //     .child('BBL DRIZZY')
-    //     .child('BBL DRIZZY Video.mp4');
 
     final firebaseStorageRef =
         FirebaseStorage.instance.ref().child('user_pitches_dummy');
@@ -51,8 +50,10 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     String? businessCategory;
     String? pitchTitle;
     String? pitchDescription;
+    DateTime? creationTime;
 
     Pitch pitch;
+    List<Pitch> loadedPitches = [];
     for (var ref in listResult.items) {
       // print('Found file: ${ref.name}');
       downloadURL = await ref.getDownloadURL();
@@ -61,40 +62,31 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       businessCategory = metadata.customMetadata!['Business category'];
       pitchTitle = metadata.customMetadata!['Pitch title'];
       pitchDescription = metadata.customMetadata!['Pitch description'];
-      // print('Download URL: $downloadURL');
-      // print('Business name: $pitchBusinessName');
-      // print('Business category: $businessCategory');
-      // print('Pitch title: $pitchTitle');
-      // print('Pitch description: $pitchDescription');
+      creationTime = metadata.timeCreated!;
 
       pitch = Pitch(
           username: pitchBusinessName!,
           category: businessCategory!,
           title: pitchTitle!,
           desc: pitchDescription!,
-          videoPitchUrl: downloadURL);
+          videoPitchUrl: downloadURL,
+          creationTime: creationTime);
 
-      setState(() {
-        pitches.add(pitch);
-        // pitches.reversed.toList();
-        //  pitches = pitches.reversed.toList();
-        // pitches = [pitch, ...pitches];
-      });
+      loadedPitches.add(pitch);
     }
 
-    // final downloadURL = await firebaseStorageRef.getDownloadURL();
+    loadedPitches.sort((a, b) => b.creationTime!.compareTo(a.creationTime!));
 
-    // print('Download URL: $downloadURL');
-    // final metadata = await firebaseStorageRef.getMetadata();
-    // final pitchDescription = metadata.customMetadata!['Pitch description'];
-    // print(
-    //     'Pitch description: ${metadata.customMetadata!['Pitch description']}');
-    // print('Pitches: $pitches');
+    setState(() {
+      pitches = loadedPitches;
+      isLoading = false;
+    });
   }
 
-  void _postNewPitch() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const NewPitchScreen()));
+  void _postNewPitch() async {
+    await Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const NewPitchScreen()))
+        .then((_) => loadFile());
   }
 
   void _selectScreen(int index) {
@@ -112,9 +104,16 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
 
     if (currentScreenIndex == 0) {
       activeScreenTitle = "PITBOWL";
-      content = FeedList(
-        pitches: pitches,
-      );
+      content = isLoading
+          ? ListView.builder(
+              itemCount: 5, // Number of shimmer placeholders
+              itemBuilder: (context, index) {
+                return const ShimmerPitchPlaceholder();
+              },
+            )
+          : FeedList(
+              pitches: pitches,
+            );
     } else if (currentScreenIndex == 1) {
       activeScreenTitle = "Market";
       content = Text(

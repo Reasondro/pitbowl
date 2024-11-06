@@ -14,6 +14,7 @@ class Pitch {
       // required this.date,
       // required this.userProfilePicture,
       // required this.videoPitch,
+      this.creationTime,
       required this.videoPitchUrl})
       : id = id ?? uuid.v4();
 
@@ -26,4 +27,5 @@ class Pitch {
   // final File userProfilePicture;
   // final File videoPitch;
   final String videoPitchUrl;
+  final DateTime? creationTime;
 }
