@@ -44,9 +44,10 @@ class _AuthScreenState extends State<AuthScreen> {
           content: const Text(
             'Please enter your email, username and password',
             style: TextStyle(
-                color: Colors.white,
-                // fontWeight: FontWeight.normal,
-                fontSize: 13),
+              color: Colors.white,
+              // fontWeight: FontWeight.normal,
+              fontSize: 13,
+            ),
             textAlign: TextAlign.left,
           ),
           backgroundColor: Theme.of(context).colorScheme.onError,
@@ -163,7 +164,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Email" : "Your email",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 13),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 5,
@@ -199,7 +201,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Username" : "Your username",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 13),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 5,
@@ -236,7 +239,8 @@ class _AuthScreenState extends State<AuthScreen> {
                       _isSignIn ? "Password" : "Your password",
                       style: const TextStyle(
                           color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 13),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 5,
@@ -275,10 +279,10 @@ class _AuthScreenState extends State<AuthScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary),
                   child: Text(
-                    _isSignIn ? "Sign In" : "Sign Up",
+                    _isSignIn ? "Sign in" : "Sign up",
                     style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 14,
+                        fontSize: 15,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -290,9 +294,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       // _isSignInMode = _isSignInMode ? false : true;
                     });
                   },
-                  child: Text(_isSignIn
-                      ? "Create an account"
-                      : "I already have an account"),
+                  child: Text(
+                    _isSignIn
+                        ? "Create an account"
+                        : "I already have an account",
+                    style: const TextStyle(fontSize: 14),
+                  ),
                 )
             ]),
       ),

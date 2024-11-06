@@ -131,10 +131,36 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       );
     } else if (currentScreenIndex == 4) {
       activeScreenTitle = "You";
-      content = Text(
-        "Some random profile content",
-        style: TextStyle(
-            fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
+      content =
+          // Text(
+          //   "Some random profile content",
+          //   style: TextStyle(
+          //       fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
+          // );
+          IconButton(
+        onPressed: () {
+          _firebaseAuth.signOut();
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "You have been signed out",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+                textAlign: TextAlign.left,
+              ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              dismissDirection: DismissDirection.horizontal,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.exit_to_app_outlined),
+        color: Theme.of(context).colorScheme.onError,
       );
     }
 
@@ -148,33 +174,11 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             onPressed: () {
               // loadFile();
             },
-            icon: const Icon(Icons.notifications_none_outlined),
+            icon: Icon(
+              Icons.notifications_none_outlined,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
-          IconButton(
-            onPressed: () {
-              _firebaseAuth.signOut();
-              ScaffoldMessenger.of(context).clearSnackBars();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    "You have been signed out",
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
-                    textAlign: TextAlign.left,
-                  ),
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  dismissDirection: DismissDirection.horizontal,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(7)),
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.exit_to_app_outlined),
-            color: Theme.of(context).colorScheme.onError,
-          )
         ],
       ),
       body: RefreshIndicator(

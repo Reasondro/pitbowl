@@ -62,7 +62,13 @@ class _FeedItemState extends ConsumerState<FeedItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            title: Text(widget.pitch.username),
+            title: Text(
+              widget.pitch.username,
+              style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Color.fromARGB(255, 149, 250, 250),
+                  fontSize: 16),
+            ),
             subtitle: Text(widget.pitch.category),
             trailing: IconButton(
               icon: const Icon(Icons.more_vert),
@@ -119,7 +125,10 @@ class _FeedItemState extends ConsumerState<FeedItem> {
             padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.pitch.title,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                  color: Color.fromARGB(255, 234, 250, 250),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
               textAlign: TextAlign.left,
             ),
           ),
@@ -133,6 +142,9 @@ class _FeedItemState extends ConsumerState<FeedItem> {
               style: const TextStyle(color: Colors.white),
               textAlign: TextAlign.left,
             ),
+          ),
+          const SizedBox(
+            height: 5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

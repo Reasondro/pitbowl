@@ -124,7 +124,7 @@ class _VideoInputState extends ConsumerState<VideoInput> {
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
             ElevatedButton.icon(
                 onPressed: () {
