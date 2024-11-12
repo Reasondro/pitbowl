@@ -106,7 +106,7 @@ class _InvestSheetState extends State<InvestSheet> {
                 decoration: const InputDecoration(
                   // prefixText: "Rp.",
                   prefix: Text(
-                    "Rp.",
+                    "Rp ",
                     style: TextStyle(color: Colors.white),
                   ),
                   labelText: "Amount",

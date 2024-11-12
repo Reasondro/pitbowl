@@ -150,6 +150,25 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       setState(() {
         _isUploading = false;
       });
+    } catch (e) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).clearSnackBars(); //? ⬇️ show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text("An unknown error occurred!"),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          // duration: Durations.long3,
+          dismissDirection: DismissDirection.down,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(7)),
+          ),
+        ),
+      );
+      setState(() {
+        _isUploading = false;
+      });
     }
 
     //     final String downloadURL = await storageRefPitch.getDownloadURL();

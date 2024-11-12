@@ -160,35 +160,37 @@ class _AuthScreenState extends State<AuthScreen> {
     // print(
     //     "Successfully authenticated $username with email $email and password $password");
 
-    try {
-      await firebaseAuth.currentUser!.updateDisplayName(username);
-    } catch (e) {
-      if (!mounted) {
-        return;
-      }
-      ScaffoldMessenger.of(context).clearSnackBars();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text(
-            "Something weird has happened",
-            style: TextStyle(
-                color: Colors.white,
-                // fontWeight: FontWeight.bold,
-                fontSize: 13),
-            textAlign: TextAlign.left,
-          ),
-          backgroundColor: Theme.of(context).colorScheme.onError,
-          dismissDirection: DismissDirection.horizontal,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(7),
+    if (!_isSignIn) {
+      try {
+        await firebaseAuth.currentUser!.updateDisplayName(username);
+      } catch (e) {
+        if (!mounted) {
+          return;
+        }
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              "Something weird has happened",
+              style: TextStyle(
+                  color: Colors.white,
+                  // fontWeight: FontWeight.bold,
+                  fontSize: 13),
+              textAlign: TextAlign.left,
+            ),
+            backgroundColor: Theme.of(context).colorScheme.onError,
+            dismissDirection: DismissDirection.horizontal,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(7),
+              ),
             ),
           ),
-        ),
-      );
-      setState(() {
-        _isAuthenticating = false;
-      });
+        );
+        setState(() {
+          _isAuthenticating = false;
+        });
+      }
     }
 
     setState(() {

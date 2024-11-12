@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pitbowl/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/model/pitch.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pitbowl/widgets/pitch_placeholder.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
+import 'package:pitbowl/widgets/user_portfolio.dart';
 
 final _firebaseAuth = FirebaseAuth.instance;
 
@@ -30,7 +32,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
   @override
   void initState() {
     final currentUser = firebaseAuth.currentUser;
-    if (currentUser != null && currentUser.displayName != null) {
+    if (currentUser != null) {
       username = currentUser.displayName!;
     }
 
@@ -135,11 +137,12 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       );
     } else if (currentScreenIndex == 3) {
       activeScreenTitle = "Your Portfolio";
-      content = Text(
-        "Some random chart here",
-        style: TextStyle(
-            fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
-      );
+      // content = Text(
+      //   "Some random chart here",
+      //   style: TextStyle(
+      //       fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
+      // );
+      content = UserPortfolio(username: username);
     } else if (currentScreenIndex == 4) {
       activeScreenTitle = username;
       content =
@@ -179,6 +182,11 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       appBar: AppBar(
         title: Text(
           activeScreenTitle,
+          style: TextStyle(
+            fontFamily: currentScreenIndex == 0
+                ? GoogleFonts.ibarraRealNova().fontFamily
+                : GoogleFonts.dmSans().fontFamily,
+          ),
         ),
         actions: [
           IconButton(
