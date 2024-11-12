@@ -9,6 +9,7 @@ import 'package:pitbowl/widgets/feed_list.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pitbowl/widgets/market.dart';
 import 'package:pitbowl/widgets/pitch_placeholder.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/widgets/user_portfolio.dart';
@@ -146,11 +147,13 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             );
     } else if (currentScreenIndex == 1) {
       activeScreenTitle = "Market";
-      content = Text(
-        "You can search here",
-        style: TextStyle(
-            fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
-      );
+      // content =
+      // Text(
+      //   "You can search here",
+      //   style: TextStyle(
+      //       fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
+      // );
+      content = const MarketScreen();
     } else if (currentScreenIndex == 3) {
       activeScreenTitle = "Your Portfolio";
       // content = Text(
@@ -223,14 +226,23 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             ),
         ],
       ),
-      body: RefreshIndicator(
-        onRefresh: loadFile,
-        child: Center(
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-              child: content),
-        ),
-      ),
+      body: currentScreenIndex == 0
+          ? RefreshIndicator(
+              onRefresh: loadFile,
+              child: Center(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                  child: content,
+                ),
+              ),
+            )
+          : Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                child: content,
+              ),
+            ),
       bottomNavigationBar: NavigationBar(
           // indicatorColor: ThemeData().colorScheme.primary,
           destinations: const [

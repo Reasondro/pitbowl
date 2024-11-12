@@ -290,6 +290,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                           height: 5,
                         ),
                         TextField(
+                          minLines: 4,
+                          maxLines: 4,
                           controller: _pitchDescTextController,
                           decoration: InputDecoration(
                             floatingLabelBehavior: FloatingLabelBehavior.never,
