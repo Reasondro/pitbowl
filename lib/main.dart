@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/screens/splash_screen.dart';
-import 'package:pitbowl/widgets/feed_list.dart';
+// import 'package:pitbowl/widgets/feed_list.dart';
 import 'firebase_options.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pitbowl/screens/new_pitch_screen.dart';
+// import 'package:pitbowl/screens/new_pitch_screen.dart';
 
 final ColorScheme pitbowlColorTheme = ColorScheme.fromSeed(
     // seedColor: const Color.fromARGB(255, 48, 0, 104),
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Pitbowl',
         theme: pitbowlTheme,
-        home: StreamBuilder(
+        home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (ctx, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

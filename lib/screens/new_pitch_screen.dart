@@ -116,7 +116,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
 
       final Reference storageRefPitch = FirebaseStorage.instance
           .ref()
-          .child('user_pitches_dummy')
+          .child('user_pitches_engpro')
           .child("$enteredPitchTitle Video.mp4");
 
       await storageRefPitch.putFile(
@@ -124,6 +124,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
         SettableMetadata(customMetadata: {
           // 'Business name': enteredBusinessName,
           'Business name': firebaseAuth.currentUser!.displayName!,
+          'Business id': firebaseAuth.currentUser!.uid,
           'Business category': enteredBusinessCategory,
           'Pitch title': enteredPitchTitle,
           'Pitch description': enteredPitchDesc

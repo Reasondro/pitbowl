@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pitbowl/widgets/invest_sheet.dart';
 import 'package:video_player/video_player.dart';

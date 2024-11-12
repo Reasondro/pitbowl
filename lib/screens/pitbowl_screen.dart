@@ -48,12 +48,13 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     });
 
     final firebaseStorageRef =
-        FirebaseStorage.instance.ref().child('user_pitches_dummy');
+        FirebaseStorage.instance.ref().child('user_pitches_engpro');
 
     final listResult = await firebaseStorageRef.listAll();
     FullMetadata metadata;
     String downloadURL;
     String? pitchBusinessName;
+    String? pitchBusinessId = "default id";
     String? businessCategory;
     String? pitchTitle;
     String? pitchDescription;
@@ -66,6 +67,9 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
       downloadURL = await ref.getDownloadURL();
       metadata = await ref.getMetadata();
       pitchBusinessName = metadata.customMetadata!['Business name'];
+
+      pitchBusinessId = metadata.customMetadata!["Business id"];
+
       businessCategory = metadata.customMetadata!['Business category'];
       pitchTitle = metadata.customMetadata!['Pitch title'];
       pitchDescription = metadata.customMetadata!['Pitch description'];
@@ -73,6 +77,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
 
       pitch = Pitch(
           username: pitchBusinessName!,
+          id: pitchBusinessId,
           category: businessCategory!,
           title: pitchTitle!,
           desc: pitchDescription!,
