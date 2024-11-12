@@ -9,6 +9,7 @@ import 'package:pitbowl/widgets/feed_list.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pitbowl/widgets/pitch_placeholder.dart';
+import 'package:pitbowl/screens/auth_screen.dart';
 
 final _firebaseAuth = FirebaseAuth.instance;
 
@@ -24,9 +25,15 @@ class PitbowlScreen extends ConsumerStatefulWidget {
 class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
   String activeScreenTitle = "PITBOWL";
   int currentScreenIndex = 0;
+  String username = "User";
 
   @override
   void initState() {
+    final currentUser = firebaseAuth.currentUser;
+    if (currentUser != null && currentUser.displayName != null) {
+      username = currentUser.displayName!;
+    }
+
     super.initState();
     loadFile();
   }
@@ -129,7 +136,7 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
             fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
       );
     } else if (currentScreenIndex == 4) {
-      activeScreenTitle = "You";
+      activeScreenTitle = username;
       content =
           // Text(
           //   "Some random profile content",

@@ -150,13 +150,46 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
       );
+      setState(() {
+        _isAuthenticating = false;
+      });
     } catch (e) {
       // print(e);
     }
 
     // print(
     //     "Successfully authenticated $username with email $email and password $password");
-    await firebaseAuth.currentUser!.updateDisplayName(username);
+
+    try {
+      await firebaseAuth.currentUser!.updateDisplayName(username);
+    } catch (e) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            "Something weird has happened",
+            style: TextStyle(
+                color: Colors.white,
+                // fontWeight: FontWeight.bold,
+                fontSize: 13),
+            textAlign: TextAlign.left,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.onError,
+          dismissDirection: DismissDirection.horizontal,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(7),
+            ),
+          ),
+        ),
+      );
+      setState(() {
+        _isAuthenticating = false;
+      });
+    }
 
     setState(() {
       _isAuthenticating = false;
@@ -319,12 +352,20 @@ class _AuthScreenState extends State<AuthScreen> {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
+              const SizedBox(
+                height: 10,
+              ),
               if (!_isAuthenticating)
                 TextButton(
                   onPressed: () {
                     setState(() {
                       _isSignIn = !_isSignIn;
                       // _isSignInMode = _isSignInMode ? false : true;
+                      FocusScope.of(context).unfocus();
+
+                      _emailController.clear();
+                      _usernameController.clear();
+                      _passwordController.clear();
                     });
                   },
                   child: Text(
