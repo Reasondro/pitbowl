@@ -37,12 +37,40 @@ class _AuthScreenState extends State<AuthScreen> {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (email.isEmpty || _usernameController.text.isEmpty || password.isEmpty) {
+    if (!_isSignIn &&
+        (email.isEmpty ||
+            _usernameController.text.isEmpty ||
+            password.isEmpty)) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text(
             'Please enter your email, username and password',
+            style: TextStyle(
+              color: Colors.white,
+              // fontWeight: FontWeight.normal,
+              fontSize: 13,
+            ),
+            textAlign: TextAlign.left,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.onError,
+          dismissDirection: DismissDirection.horizontal,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(7),
+            ),
+          ),
+        ),
+      );
+      return;
+    }
+
+    if (_isSignIn && (email.isEmpty || password.isEmpty)) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+            'Please enter your email and password',
             style: TextStyle(
               color: Colors.white,
               // fontWeight: FontWeight.normal,
@@ -197,36 +225,39 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      _isSignIn ? "Username" : "Your username",
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 232, 235, 236),
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextField(
-                      controller: _usernameController,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 230, 248, 248)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary),
-                        ),
+                    if (!_isSignIn)
+                      const Text(
+                        "Your username",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 232, 235, 236),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold),
                       ),
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 216, 216, 216)),
+                    if (!_isSignIn)
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    if (!_isSignIn)
+                      TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                            borderSide: const BorderSide(
+                                color: Color.fromARGB(255, 230, 248, 248)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                        ),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 216, 216, 216)),
 
-                      // keyboardType: TextInputType.emailAddress,
-                    ),
+                        // keyboardType: TextInputType.emailAddress,
+                      ),
                   ],
                 ),
               ),
