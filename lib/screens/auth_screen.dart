@@ -4,7 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-final _firebaseAuth = FirebaseAuth.instance;
+final firebaseAuth = FirebaseAuth.instance;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -99,12 +99,12 @@ class _AuthScreenState extends State<AuthScreen> {
         _isAuthenticating = true;
       });
       if (_isSignIn) {
-        userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        userCredential = await firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
       } else {
-        userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+        userCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -156,6 +156,8 @@ class _AuthScreenState extends State<AuthScreen> {
 
     // print(
     //     "Successfully authenticated $username with email $email and password $password");
+    await firebaseAuth.currentUser!.updateDisplayName(username);
+
     setState(() {
       _isAuthenticating = false;
     });

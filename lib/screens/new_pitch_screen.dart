@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'package:pitbowl/widgets/user_video_input.dart';
 
@@ -15,8 +16,6 @@ class NewPitchScreen extends ConsumerStatefulWidget {
 }
 
 class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
-  final TextEditingController _businessNameTextController =
-      TextEditingController();
   final TextEditingController _businessCategoryTextController =
       TextEditingController();
   final TextEditingController _pitchTitleTextController =
@@ -31,7 +30,7 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
   void dispose() {
     _pitchTitleTextController.dispose();
     _pitchDescTextController.dispose();
-    _businessNameTextController.dispose();
+    // _businessNameTextController.dispose();
     _businessCategoryTextController.dispose();
     // _te
 
@@ -39,7 +38,6 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
   }
 
   void _submitPitch() async {
-    final String enteredBusinessName = _businessNameTextController.text.trim();
     final String enteredBusinessCategory =
         _businessCategoryTextController.text.trim();
     final String enteredPitchTitle = _pitchTitleTextController.text.trim();
@@ -47,7 +45,6 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
 
     if (enteredPitchTitle.isEmpty ||
         enteredPitchDesc.isEmpty ||
-        enteredBusinessName.isEmpty ||
         enteredBusinessCategory.isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
@@ -125,7 +122,8 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       await storageRefPitch.putFile(
         _selectedVideo!,
         SettableMetadata(customMetadata: {
-          'Business name': enteredBusinessName,
+          // 'Business name': enteredBusinessName,
+          'Business name': firebaseAuth.currentUser!.displayName!,
           'Business category': enteredBusinessCategory,
           'Pitch title': enteredPitchTitle,
           'Pitch description': enteredPitchDesc
@@ -161,8 +159,6 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
       return;
     }
     Navigator.pop(context);
-    // Navigator.pushReplacement(context,
-    //     MaterialPageRoute(builder: (context) => const PitbowlScreen()));
   }
 
   @override
@@ -170,21 +166,13 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 30,
-        // leading: Padding(
-        //   padding: const EdgeInsets.all(0), // Set padding to 0
-        //   child: IconButton(
-        //     icon: Icon(Icons.arrow_back, size: 30.0),
-        //     onPressed: () => Navigator.of(context).pop(),
-        //   ),
-        // ),
-        // automaticallyImplyLeading: false,
         title: const Text(
           "New Pitch",
         ),
       ),
       body: Padding(
         padding:
-            const EdgeInsets.only(top: 40, right: 20, left: 20, bottom: 20),
+            const EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 20),
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -192,43 +180,6 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Business Name",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 232, 235, 236),
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        TextField(
-                          controller: _businessNameTextController,
-                          decoration: InputDecoration(
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: const BorderSide(
-                                  color: Color.fromARGB(255, 207, 218, 218)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                              borderSide: BorderSide(
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                          ),
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 216, 216, 216),
-                              fontSize: 16.0),
-                        ),
-                      ],
-                    ),
-                  ),
                   Container(
                     margin: const EdgeInsets.only(bottom: 15),
                     child: Column(
