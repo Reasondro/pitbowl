@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/screens/pitbowl_screen.dart';
 import 'package:pitbowl/widgets/user_video_input.dart';
@@ -186,8 +187,9 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 30,
-        title: const Text(
+        title: Text(
           "New Pitch",
+          style: TextStyle(fontFamily: GoogleFonts.dmSans().fontFamily),
         ),
       ),
       body: Padding(
@@ -317,24 +319,30 @@ class _NewPitchScreenState extends ConsumerState<NewPitchScreen> {
                   const SizedBox(
                     height: 25,
                   ),
-                  ElevatedButton.icon(
-                    icon: const Icon(
-                      Icons.aspect_ratio,
-                      color: Colors.black,
-                    ),
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                          Theme.of(context).colorScheme.primary.withAlpha(255)),
-                    ),
-                    onPressed: () {
-                      _submitPitch();
-                    },
-                    label: const Text(
-                      "Pitch it!",
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(
+                        Icons.aspect_ratio,
+                        color: Colors.black,
+                      ),
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                            Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(255)),
+                      ),
+                      onPressed: () {
+                        _submitPitch();
+                      },
+                      label: const Text(
+                        "Pitch it!",
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],

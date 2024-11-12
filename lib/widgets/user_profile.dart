@@ -1,5 +1,3 @@
-// FILE: user_profile.dart
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
-import 'package:pitbowl/screens/auth_screen.dart';
 
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) {
   return FirebaseAuth.instance;
@@ -123,8 +120,10 @@ class _UserProfileState extends ConsumerState<UserProfile> {
         await currentUser.updatePhotoURL(photoURL);
       }
       await currentUser.reload();
-      final updatedUser = auth.currentUser;
 
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Profile updated successfully."),
@@ -133,6 +132,9 @@ class _UserProfileState extends ConsumerState<UserProfile> {
       );
     } catch (e) {
       // Handle errors
+      if (!mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Failed to update profile: $e"),
@@ -147,42 +149,17 @@ class _UserProfileState extends ConsumerState<UserProfile> {
     }
   }
 
-  Future<void> _signOut() async {
-    await ref.read(firebaseAuthProvider).signOut();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("You have been signed out."),
-        backgroundColor: Colors.blue,
-      ),
-    );
-    // Navigate to AuthScreen or appropriate screen
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const AuthScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentUser = ref.watch(firebaseAuthProvider).currentUser;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Your Profile"),
-        actions: [
-          IconButton(
-            onPressed: _signOut,
-            icon: const Icon(Icons.logout),
-            tooltip: "Sign Out",
-          ),
-        ],
-      ),
       body: currentUser == null
           ? const Center(child: Text("No user is signed in."))
           : SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  // Profile Picture
                   GestureDetector(
                     onTap: _pickImage,
                     child: CircleAvatar(
@@ -206,19 +183,20 @@ class _UserProfileState extends ConsumerState<UserProfile> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 25),
                   // Profile Form
                   Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        // Display Name
                         TextFormField(
                           controller: _nameController,
                           decoration: const InputDecoration(
-                            labelText: "Display Name",
+                            labelText: "Username",
                             border: OutlineInputBorder(),
                           ),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 216, 216, 216)),
                           validator: (value) {
                             if (value == null ||
                                 value.trim().isEmpty ||
@@ -229,7 +207,7 @@ class _UserProfileState extends ConsumerState<UserProfile> {
                           },
                         ),
                         const SizedBox(height: 20),
-                        // Email Address (Read-Only)
+                        //?Emaill  Address (Read-Only)
                         TextFormField(
                           initialValue: currentUser.email ?? "No Email",
                           decoration: const InputDecoration(
@@ -237,9 +215,12 @@ class _UserProfileState extends ConsumerState<UserProfile> {
                             border: OutlineInputBorder(),
                           ),
                           readOnly: true,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 216, 216, 216)),
                         ),
+
                         const SizedBox(height: 30),
-                        // Save Button
+
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(

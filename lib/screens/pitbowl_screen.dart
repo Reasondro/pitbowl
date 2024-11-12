@@ -12,8 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pitbowl/widgets/pitch_placeholder.dart';
 import 'package:pitbowl/screens/auth_screen.dart';
 import 'package:pitbowl/widgets/user_portfolio.dart';
-
-final _firebaseAuth = FirebaseAuth.instance;
+import 'package:pitbowl/widgets/user_profile.dart';
 
 class PitbowlScreen extends ConsumerStatefulWidget {
   const PitbowlScreen({super.key});
@@ -38,6 +37,23 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
 
     super.initState();
     loadFile();
+  }
+
+  Future<void> _signOut() async {
+    await ref.read(firebaseAuthProvider).signOut();
+    if (!mounted) {
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("You have been signed out."),
+        backgroundColor: Colors.blue,
+      ),
+    );
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const AuthScreen()),
+    );
   }
 
   List<Pitch> pitches = [];
@@ -146,36 +162,32 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
     } else if (currentScreenIndex == 4) {
       activeScreenTitle = username;
       content =
-          // Text(
-          //   "Some random profile content",
-          //   style: TextStyle(
-          //       fontSize: 20, color: pitbowlColorTheme.copyWith().onSurface),
+          //     IconButton(
+          //   onPressed: () {
+          //     _firebaseAuth.signOut();
+          //     ScaffoldMessenger.of(context).clearSnackBars();
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //       SnackBar(
+          //         content: Text(
+          //           "You have been signed out",
+          //           style: TextStyle(
+          //               color: Theme.of(context).colorScheme.onPrimary,
+          //               fontWeight: FontWeight.bold,
+          //               fontSize: 15),
+          //           textAlign: TextAlign.left,
+          //         ),
+          //         backgroundColor: Theme.of(context).colorScheme.primary,
+          //         dismissDirection: DismissDirection.horizontal,
+          //         shape: const RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.all(Radius.circular(7)),
+          //         ),
+          //       ),
+          //     );
+          //   },
+          //   icon: const Icon(Icons.exit_to_app_outlined),
+          //   color: Theme.of(context).colorScheme.onError,
           // );
-          IconButton(
-        onPressed: () {
-          _firebaseAuth.signOut();
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                "You have been signed out",
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15),
-                textAlign: TextAlign.left,
-              ),
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              dismissDirection: DismissDirection.horizontal,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(7)),
-              ),
-            ),
-          );
-        },
-        icon: const Icon(Icons.exit_to_app_outlined),
-        color: Theme.of(context).colorScheme.onError,
-      );
+          const UserProfile();
     }
 
     return Scaffold(
@@ -189,15 +201,26 @@ class _PitbwolScreenState extends ConsumerState<PitbowlScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              // loadFile();
-            },
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              color: Theme.of(context).colorScheme.secondary,
+          if (currentScreenIndex != 4)
+            IconButton(
+              onPressed: () {
+                // loadFile();
+              },
+              icon: Icon(
+                Icons.notifications_none_outlined,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
-          ),
+          if (currentScreenIndex == 4)
+            IconButton(
+              onPressed: () {
+                _signOut();
+              },
+              icon: Icon(
+                Icons.exit_to_app_outlined,
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
         ],
       ),
       body: RefreshIndicator(

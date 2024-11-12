@@ -10,20 +10,20 @@ class UserPortfolio extends StatelessWidget {
   final List<Investment> investments = const [
     Investment(
       companyName: "Tech Innovators Inc.",
-      investmentAmount: 5000,
-      currentValue: 7500,
+      investmentAmount: 600000,
+      currentValue: 750000,
       returnPercentage: 55.6,
     ),
     Investment(
       companyName: "HealthPlus Corp.",
-      investmentAmount: 3000,
-      currentValue: 4500,
+      investmentAmount: 30000,
+      currentValue: 450000,
       returnPercentage: 42.1,
     ),
     Investment(
       companyName: "Green Energy LLC",
-      investmentAmount: 4000,
-      currentValue: 6000,
+      investmentAmount: 400000,
+      currentValue: 600000,
       returnPercentage: 37.9,
     ),
     Investment(
